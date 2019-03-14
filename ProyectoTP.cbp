@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ProyectoTP" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ProyectoTP" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ProyectoTP" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Bala.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Bala.h" />
+		<Unit filename="Balas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Balas.h" />
+		<Unit filename="Colision.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Colision.h" />
+		<Unit filename="Enemigo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Enemigo.h" />
+		<Unit filename="Enemigos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Enemigos.h" />
+		<Unit filename="Estrella.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Estrella.h" />
+		<Unit filename="Estrellas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Estrellas.h" />
+		<Unit filename="Pantalla.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Pantalla.h" />
+		<Unit filename="Personaje.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Personaje.h" />
+		<Unit filename="Principal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Vida.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Vida.h" />
+		<Unit filename="Vidas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Vidas.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
