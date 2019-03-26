@@ -41,7 +41,7 @@ Imagen fondo1, fondo2, fondo3, fondo4;
 
 int main(int argc, char **argv)
 {
-    Pantalla_Crea("Marciano Game II 1.3",640,480 );
+    Pantalla_Crea("Marciano Game II 1.3",1280,960);
     int wPantalla = Pantalla_Anchura();
     int hPantalla = Pantalla_Altura();
     Pantalla_ColorRelleno(255,255,255,255);

@@ -1,6 +1,6 @@
 #include "Enemigos.h"
 #include <stdlib.h>
-#include "colision.h"
+#include "Colision.h"
 
 struct EnemigosRep{
     Enemigo e;
