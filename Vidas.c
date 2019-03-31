@@ -35,7 +35,7 @@ void VidasDibuja(Vidas p)
 
 void VidasRellena(Vidas e, Imagen i, int w, int h, int x, int y)
 {
-    while (e->n<e->max)
+    while (e->n < e->max)
     {
         Vida v1=VidaCrea(i,w,h,x+e->n*30,y);
         e->e[e->n]=v1;
@@ -45,7 +45,7 @@ void VidasRellena(Vidas e, Imagen i, int w, int h, int x, int y)
 
 void VidasEliminaVida(Vidas s)
 {
-    VidaLibera(s->e[s->n]);
+    //VidaLibera(s->e[s->n]); FIXME
     s->n--;
 };
 

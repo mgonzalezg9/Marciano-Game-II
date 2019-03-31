@@ -22,6 +22,7 @@ void VidaLibera (Vida p)
 {
     free(p);
 }
+
 void VidaDibuja(Vida p)
 {
     Pantalla_DibujaImagen(p->i,p->x,p->y,p->w,p->h);

@@ -10,8 +10,8 @@
 #define PuntosBalazo 20
 #define WPersonaje 64
 #define HPersonaje 64
-#define WEnemigo 64
-#define HEnemigo 64
+#define WEnemigo 80
+#define HEnemigo 80
 #define WBala 15
 #define HBala 45
 #define WVida 25
@@ -33,7 +33,7 @@
 \mainpage Videojuego donde una nave guíada por el usuario debe aguantar el máximo tiempo posible sin chocar con una nave marciana enemiga, para obtener la máxima puntuación posible.
 \file Principal.c
 \author Manuel González García
-\version 1.3
+\version 1.4
 
 **/
 
@@ -41,7 +41,7 @@ Imagen fondo1, fondo2, fondo3, fondo4;
 
 int main(int argc, char **argv)
 {
-    Pantalla_Crea("Marciano Game II 1.3",1280,960);
+    Pantalla_Crea("Marciano Game II 1.4",1280,960);
     int wPantalla = Pantalla_Anchura();
     int hPantalla = Pantalla_Altura();
     Pantalla_ColorRelleno(255,255,255,255);
@@ -60,6 +60,7 @@ int main(int argc, char **argv)
     // Contador de interaciones
     int fps=0;
     // FASE 1
+    printf("[Fase 1]\n");
     while(Pantalla_Activa()&&(!fin))
     {
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_RETURN))
@@ -85,6 +86,7 @@ int main(int argc, char **argv)
     int sel=0;
     int flag=1;
     // FASE 2
+    printf("[Fase 2]\n");
     while(Pantalla_Activa()&&(!fin))
     {
         // Condición de cambio de fase
@@ -137,6 +139,7 @@ int main(int argc, char **argv)
     flag=1;
     int primvez=1; // Determina si se ha disparado ya antes
     // FASE 3
+    printf("[Fase 3]\n");
     while(Pantalla_Activa()&&(!fin)&&(VidasGetVida(v)>0)/*&&(puntos>=0)*/)
     {
         // Condición de final de juego
@@ -161,11 +164,14 @@ int main(int argc, char **argv)
         }
         if (EstrellasColision(e,PersonajeGetX(p),PersonajeGetY(p),PersonajeGetH(p),PersonajeGetW(p)))
         {
+            printf("[Colision] Estrella\n");
             puntos_estrellas+=20;
         }
         if (EnemigosColision(e1,PersonajeGetX(p),PersonajeGetY(p),PersonajeGetH(p),PersonajeGetW(p))){
+            printf("[Colision] Enemigo\n");
             puntos_enemigo+=20;
             VidasEliminaVida(v);
+            printf("[Vidas] Restantes: %d\n", VidasGetVida(v));
         }
         BPuntos+=BalasColision(b,e1)*PuntosBalazo;
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_F)&&(flag==1)){
@@ -215,6 +221,7 @@ int main(int argc, char **argv)
     Pantalla_ImagenLibera(Imp2);
     Pantalla_ImagenLibera(Imp3);
     // Guardado de la puntuación
+    printf("[Guardado] Puntuacion\n");
     int datoleido;
     int puntosmax=0;
     FILE * r= fopen("record.txt","r");
@@ -224,9 +231,7 @@ int main(int argc, char **argv)
         {
             fscanf(r, "%d", &datoleido);
             if (datoleido>puntosmax)
-            {
                 puntosmax=datoleido;
-            }
         }
         fclose(r);
     }
@@ -238,6 +243,7 @@ int main(int argc, char **argv)
     fprintf(r,"%d\n",puntos);
     fclose(r);
     // FASE 4
+    printf("[Fase 4]\n");
     while (Pantalla_Activa()&&(!fin))
     {
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_ESCAPE))

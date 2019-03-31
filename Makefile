@@ -1,4 +1,4 @@
-TARGET = main
+TARGET = run
 LIBS = -lSDL2main -lSDL2 -lSDL2_ttf -lm
 CC = gcc
 CL = g++
