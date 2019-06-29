@@ -48,17 +48,17 @@ int main(int argc, char **argv)
     Pantalla_ColorTrazo(255,0,0,255);
     int fin = 0;
     // Lectura de imágenes
-    fondo1=Pantalla_ImagenLee("PantallaInicio.bmp",0);
-    fondo2=Pantalla_ImagenLee("EleccionPersonaje.bmp",0);
-    fondo3=Pantalla_ImagenLee("PantallaJuego.bmp",0);
-    fondo4=Pantalla_ImagenLee("PantallaFinal.bmp",0);
+    fondo1=Pantalla_ImagenLee("sprites/PantallaInicio.bmp",0);
+    fondo2=Pantalla_ImagenLee("sprites/EleccionPersonaje.bmp",0);
+    fondo3=Pantalla_ImagenLee("sprites/PantallaJuego.bmp",0);
+    fondo4=Pantalla_ImagenLee("sprites/PantallaFinal.bmp",0);
     Imagen Im;
-    Imagen Im2=Pantalla_ImagenLee("enemigo.bmp",1);
-    Imagen Im3=Pantalla_ImagenLee("estrella.bmp",1);
-    Imagen Im4=Pantalla_ImagenLee("bala.bmp",1);
-    Imagen Im5=Pantalla_ImagenLee("vida.bmp",1);
+    Imagen Im2=Pantalla_ImagenLee("sprites/enemigo.bmp",1);
+    Imagen Im3=Pantalla_ImagenLee("sprites/estrella.bmp",1);
+    Imagen Im4=Pantalla_ImagenLee("sprites/bala.bmp",1);
+    Imagen Im5=Pantalla_ImagenLee("sprites/vida.bmp",1);
     // Contador de interaciones
-    int fps=0;
+    int fps = 0;
     // FASE 1
     printf("[Fase 1]\n");
     while(Pantalla_Activa()&&(!fin))
@@ -79,9 +79,9 @@ int main(int argc, char **argv)
     // Liberado de elementos de la pantalla anterior
     Pantalla_ImagenLibera(fondo1);
     // Imágenes del personaje a elegir
-    Imagen Imp1=Pantalla_ImagenLee("personaje.bmp",1);
-    Imagen Imp2=Pantalla_ImagenLee("personaje2.bmp",1);
-    Imagen Imp3=Pantalla_ImagenLee("personaje3.bmp",1);
+    Imagen Imp1=Pantalla_ImagenLee("sprites/personaje.bmp",1);
+    Imagen Imp2=Pantalla_ImagenLee("sprites/personaje2.bmp",1);
+    Imagen Imp3=Pantalla_ImagenLee("sprites/personaje3.bmp",1);
     // Variables de control
     int sel=0;
     int flag=1;
