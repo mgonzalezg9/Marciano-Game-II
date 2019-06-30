@@ -2,8 +2,8 @@ TARGET = run
 LIBS = -lSDL2main -lSDL2 -lSDL2_ttf -lm
 CFLAGS = -g -Wall -lSDL2 -std=c99
 
-SOURCES = $(wildcard *.c) $(wildcard */*.c)
-HEADERS = $(wildcard *.h) $(wildcard */*.h)
+SOURCES = $(wildcard modulos/*.c)
+HEADERS = $(wildcard modulos/*.h)
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -19,4 +19,4 @@ $(TARGET): $(OBJECTS)
 	gcc $(OBJECTS) -Wall $(LIBS) -o $@
 
 clean:
-	-rm -f $(OBJECTS) $(TARGET)
+	-rm -f $(OBJECTS) $(TARGET) record.txt

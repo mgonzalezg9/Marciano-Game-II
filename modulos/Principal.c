@@ -37,21 +37,22 @@
 
 **/
 
-Imagen fondo1, fondo2, fondo3, fondo4;
 
 int main(int argc, char **argv)
 {
+    // Cargado de las imágenes y creación de la pantalla
+    Imagen fondo1, fondo2, fondo3, fondo4;
     Pantalla_Crea("Marciano Game II 1.4",1280,960);
     int wPantalla = Pantalla_Anchura();
     int hPantalla = Pantalla_Altura();
     Pantalla_ColorRelleno(255,255,255,255);
-    Pantalla_ColorTrazo(255,0,0,255);
+    Pantalla_ColorTrazo(0,255,0,255);
     int fin = 0;
     // Lectura de imágenes
-    fondo1=Pantalla_ImagenLee("sprites/PantallaInicio.bmp",0);
-    fondo2=Pantalla_ImagenLee("sprites/EleccionPersonaje.bmp",0);
-    fondo3=Pantalla_ImagenLee("sprites/PantallaJuego.bmp",0);
-    fondo4=Pantalla_ImagenLee("sprites/PantallaFinal.bmp",0);
+    fondo1=Pantalla_ImagenLee("bg/PantallaInicio.bmp",0);
+    fondo2=Pantalla_ImagenLee("bg/EleccionPersonaje.bmp",0);
+    fondo3=Pantalla_ImagenLee("bg/PantallaJuego.bmp",0);
+    fondo4=Pantalla_ImagenLee("bg/PantallaFinal.bmp",0);
     Imagen Im;
     Imagen Im2=Pantalla_ImagenLee("sprites/enemigo.bmp",1);
     Imagen Im3=Pantalla_ImagenLee("sprites/estrella.bmp",1);

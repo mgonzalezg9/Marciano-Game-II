@@ -13,4 +13,4 @@ make clean
 ```
 
 ## Version
-1.4
+1.4.1
