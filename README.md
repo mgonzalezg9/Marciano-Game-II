@@ -4,13 +4,15 @@ Arcade game based on Galaga. TP Project.
 ## Compile & run
 To compile the game just run:  
 ```sh
-make
+$ make
 ```  
-  
-If you want to erase all generated files run:
+
+The executable file is prepared and you can play the game by running:
 ```sh
-make clean
+$ ./run
 ```
 
-## Version
-1.4.1
+If you want to erase all generated files run:
+```sh
+$ make clean
+```
