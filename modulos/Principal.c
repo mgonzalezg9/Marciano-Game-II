@@ -9,25 +9,10 @@
 #include <time.h>
 
 #define PuntosBalazo 20
-//#define WPersonaje 64
-//#define HPersonaje 64
-#define WEnemigo 80
-#define HEnemigo 80
-#define WBala 15
-#define HBala 45
-#define WVida 25
-#define HVida 25
-//#define VxPersonaje 20
-//#define VyPersonaje 20
-#define VxEnemigo 10
-#define VyEnemigo 10
-#define VyBala 30
-#define MaxEstrellas 5
-#define PosVidas 70
-#define DesplzVidas 5
 #define ProbApEstrellas 30 // Cuanto menor sea más probable será que aparezcan
 #define ProbApEnemigos 10
 #define VidaInicial 3
+#define MaxEstrellas 5
 
 /**
 
@@ -39,8 +24,7 @@
 **/
 
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     // Cargado de las imágenes y creación de la pantalla
     Imagen fondo1, fondo2, fondo3, fondo4;
     Pantalla_Crea("Marciano Game II", 1280, 960);
@@ -48,21 +32,37 @@ int main(int argc, char **argv)
     int wPantalla = Pantalla_Anchura();
     int hPantalla = Pantalla_Altura();
 
-    // Las caracteristicas del personaje van en funcion de la pantalla
-    int WPersonaje = wPantalla/12;
-    int HPersonaje = WPersonaje;
-
-    int VPersonaje = WPersonaje/4;
-
     Pantalla_ColorRelleno(255,255,255,255);
     Pantalla_ColorTrazo(0,255,0,255);
     int fin = 0;
+
+    // Definición de las características de los objetos según la pantalla
+    int WPersonaje = wPantalla/12;
+    int HPersonaje = WPersonaje;
+
+    int VPersonaje = WPersonaje/5;
+
+    int WEnemigo = wPantalla/12;
+    int HEnemigo = WEnemigo;
+
+    int VxEnemigo = VPersonaje * 0.75;
+    int VyEnemigo = VxEnemigo;
+
+    int WBala = wPantalla/70;
+    int HBala = WEnemigo/2;
+
+    int VBala = wPantalla/45;
+
+    int WVida = wPantalla/50;
+    int HVida = WVida;
+
 
     // Lectura de imágenes
     fondo1=Pantalla_ImagenLee("bg/PantallaInicio.bmp",0);
     fondo2=Pantalla_ImagenLee("bg/EleccionPersonaje.bmp",0);
     fondo3=Pantalla_ImagenLee("bg/PantallaJuego.bmp",0);
     fondo4=Pantalla_ImagenLee("bg/PantallaFinal.bmp",0);
+
     Imagen Im;
     Imagen Im2=Pantalla_ImagenLee("sprites/enemigo.bmp",1);
     Imagen Im3=Pantalla_ImagenLee("sprites/estrella.bmp",1);
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
         Pantalla_DibujaImagen(fondo1,0,0,wPantalla,hPantalla);
 
         if (flag || time(NULL) - ti < 1) { // Si es la primera vez o no ha pasado un segundo dibujar texto
-            Pantalla_DibujaTexto("Pulsa la tecla [Enter] para continuar",10,hPantalla-35);
+            Pantalla_DibujaTexto("Pulsa la tecla [Enter] para continuar", wPantalla/100, hPantalla*0.98);
         } else {
             if (time(NULL) - ti > 1.2) { // Si no se ha dibujado el texto desde hace 1.2 - 1 seg reiniciar el tiempo
                 ti = time(NULL);
@@ -161,12 +161,12 @@ int main(int argc, char **argv)
     Pantalla_ImagenLibera(fondo2);
 
     // Inicialización de TDA
-    Personaje p=PersonajeCrea(Im,WPersonaje,HPersonaje,rand()%(wPantalla-WPersonaje),hPantalla-HPersonaje);
+    Personaje p=PersonajeCrea(Im, WPersonaje, HPersonaje, rand()%(wPantalla-WPersonaje), hPantalla-HPersonaje);
     Enemigos e1=EnemigosCrea();
     Estrellas e=EstrellasCrea(MaxEstrellas);
     Balas b=BalasCrea();
     Vidas v=VidasCrea(VidaInicial);
-    VidasRellena(v,Im5,WVida,HVida,DesplzVidas,PosVidas);
+    VidasRellena(v, Im5, WVida, HVida, wPantalla/100, hPantalla/12); // Se dibujan las vidas 
 
     // Preparación del nivel
     fin=0;
@@ -175,7 +175,6 @@ int main(int argc, char **argv)
     int puntos;
     int puntos_estrellas=0;
     int puntos_enemigo=0;
-    //fps=0;
     char mensaje[100];
     int BPuntos=0;
     flag=1;
@@ -185,8 +184,7 @@ int main(int argc, char **argv)
     printf("[Fase 3]\n");
     while(Pantalla_Activa() && !fin && VidasGetVida(v)>0) {
         // Condición de final de juego
-        if (Pantalla_TeclaPulsada(SDL_SCANCODE_TAB))
-        {
+        if (Pantalla_TeclaPulsada(SDL_SCANCODE_TAB)) {
             fin=1;
         }
 
@@ -218,7 +216,7 @@ int main(int argc, char **argv)
         }
         BPuntos+=BalasColision(b,e1)*PuntosBalazo;
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_F) && flag) {
-            Bala bala=BalaCrea(Im4,WBala,HBala,PersonajeGetX(p)+25,PersonajeGetY(p),VyBala);
+            Bala bala=BalaCrea(Im4,WBala,HBala,PersonajeGetX(p)+25,PersonajeGetY(p),VBala);
             BalasInsertaNuevaBala(b, bala);
             flag=0;
             primvez=0;
@@ -242,14 +240,14 @@ int main(int argc, char **argv)
         PersonajeDibuja(p);
 
         // Dibuja un pequeño menú
-        Pantalla_DibujaTexto("Para terminar el juego pulse [Tab].",10,10);
-        Pantalla_DibujaTexto(mensaje,10,40);
+        Pantalla_DibujaTexto("Para terminar el juego pulse [Tab].", wPantalla/100, hPantalla/50);
+        Pantalla_DibujaTexto(mensaje, wPantalla/100, hPantalla/20);
         VidasDibuja(v);
-        if (primvez) Pantalla_DibujaTexto("Pulse [f] para disparar",10,hPantalla-35); // En el caso de que no se haya disparado antes muestra el control
+        if (primvez) Pantalla_DibujaTexto("Pulse [f] para disparar", wPantalla/100, hPantalla*0.98); // En el caso de que no se haya disparado antes muestra el control
         
         // Refresco de la pantalla
         Pantalla_Actualiza();
-        Pantalla_Espera(40);
+        Pantalla_Espera(20);
     }
     fin=0;
     // Liberación de las TDA y de las imágenes
@@ -273,10 +271,8 @@ int main(int argc, char **argv)
     int datoleido;
     int puntosmax=0;
     FILE * r= fopen("record.txt","r");
-    if (r!=NULL)
-    {
-        while (!feof(r))
-        {
+    if (r!=NULL) {
+        while (!feof(r)) {
             fscanf(r, "%d", &datoleido);
             if (datoleido>puntosmax)
                 puntosmax=datoleido;
@@ -292,16 +288,15 @@ int main(int argc, char **argv)
     fclose(r);
     // FASE 4
     printf("[Fase 4]\n");
-    while (Pantalla_Activa()&&(!fin))
-    {
-        if (Pantalla_TeclaPulsada(SDL_SCANCODE_ESCAPE))
-        {
+    while (Pantalla_Activa() && !fin) {
+        if (Pantalla_TeclaPulsada(SDL_SCANCODE_ESCAPE)) {
             fin=1;
         }
-        Pantalla_DibujaImagen(fondo4,0,0,wPantalla,hPantalla);
-        Pantalla_DibujaTexto("Para salir pulse [Esc].",220,300);
-        Pantalla_DibujaTexto(mensaje,255,230);
-        Pantalla_DibujaTexto(texto2,250,265);
+
+        Pantalla_DibujaImagen(fondo4, 0, 0, wPantalla, hPantalla);
+        Pantalla_DibujaTexto("Para salir pulse [Esc].", wPantalla/3, hPantalla/2);
+        Pantalla_DibujaTexto(mensaje, wPantalla/3, hPantalla * 0.55);
+        Pantalla_DibujaTexto(texto2, wPantalla/3, hPantalla * 0.6);
         Pantalla_Actualiza();
         Pantalla_Espera(40);
     }
