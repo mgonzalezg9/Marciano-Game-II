@@ -303,9 +303,9 @@ int main(int argc, char **argv) {
         }
 
         Pantalla_DibujaImagen(fondo4, 0, 0, wPantalla, hPantalla);
-        Pantalla_DibujaTexto("Para salir pulse [Esc].", wPantalla/3, hPantalla/2);
-        Pantalla_DibujaTexto(mensajePuntos, wPantalla/3, hPantalla * 0.55);
-        Pantalla_DibujaTexto(texto2, wPantalla/3, hPantalla * 0.6);
+        Pantalla_DibujaTexto("Para salir pulse [Esc].", wPantalla*0.43, hPantalla/2);
+        Pantalla_DibujaTexto(mensajePuntos, wPantalla*0.43, hPantalla * 0.55);
+        Pantalla_DibujaTexto(texto2, wPantalla*0.43, hPantalla * 0.6);
 
         Pantalla_Actualiza();
         Pantalla_Espera(40);
