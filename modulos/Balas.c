@@ -15,15 +15,13 @@ Balas BalasCrea(){
 
 int BalasColision(Balas b, Enemigos e){
     int Muertos=0;
-    while (b->sig!=NULL)
-        {
-            if (EnemigosColision(e, BalaGetX(b->sig->b), BalaGetY(b->sig->b), BalaGetH(b->sig->b), BalaGetW(b->sig->b)))
-            {
-                Muertos++;
-                printf("[Disparo] Enemigo eliminado\n");
-            }
-            b=b->sig;
+    while (b->sig!=NULL) {
+        if (EnemigosColision(e, BalaGetX(b->sig->b), BalaGetY(b->sig->b), BalaGetH(b->sig->b), BalaGetW(b->sig->b))) {
+            Muertos++;
+            printf("[Disparo] Enemigo eliminado\n");
         }
+        b=b->sig;
+    }
     return Muertos;
 }
 

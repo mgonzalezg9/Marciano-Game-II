@@ -13,6 +13,7 @@
 #define ProbApEnemigos 10
 #define VidaInicial 3
 #define MaxEstrellas 5
+#define LimiteBalas 15 // Número máximo de balas que se pueden disparar
 
 /**
 
@@ -55,7 +56,6 @@ int main(int argc, char **argv) {
 
     int WVida = wPantalla/50;
     int HVida = WVida;
-
 
     // Lectura de imágenes
     fondo1=Pantalla_ImagenLee("bg/PantallaInicio.bmp",0);
@@ -165,6 +165,7 @@ int main(int argc, char **argv) {
     Enemigos e1=EnemigosCrea();
     Estrellas e=EstrellasCrea(MaxEstrellas);
     Balas b=BalasCrea();
+    int disparadas = 0;
     Vidas v=VidasCrea(VidaInicial);
     VidasRellena(v, Im5, WVida, HVida, wPantalla/100, hPantalla/12); // Se dibujan las vidas 
 
@@ -175,7 +176,8 @@ int main(int argc, char **argv) {
     int puntos;
     int puntos_estrellas=0;
     int puntos_enemigo=0;
-    char mensaje[100];
+    char mensajePuntos[100];
+    char mensajeMunicion[100];
     int BPuntos=0;
     flag=1;
     int primvez=1; // Determina si se ha disparado ya antes
@@ -190,7 +192,7 @@ int main(int argc, char **argv) {
 
         // Recuento de los puntos
         t2=time(NULL);
-        puntos= t2-ti + puntos_estrellas - puntos_enemigo + BPuntos;
+        puntos= t2 - ti + puntos_estrellas - puntos_enemigo + BPuntos;
 
         // Aparición de objetos
         if (rand()%ProbApEstrellas==1)
@@ -215,14 +217,18 @@ int main(int argc, char **argv) {
             printf("[Vidas] Restantes: %d\n", VidasGetVida(v));
         }
         BPuntos+=BalasColision(b,e1)*PuntosBalazo;
-        if (Pantalla_TeclaPulsada(SDL_SCANCODE_F) && flag) {
+        if (Pantalla_TeclaPulsada(SDL_SCANCODE_F) && flag && disparadas < LimiteBalas) {
             Bala bala=BalaCrea(Im4,WBala,HBala,PersonajeGetX(p)+25,PersonajeGetY(p),VBala);
             BalasInsertaNuevaBala(b, bala);
+            disparadas++;
             flag=0;
             primvez=0;
+            printf("[Disparo] Balas disparadas: %d\n", disparadas);
         }
         if (!Pantalla_TeclaPulsada(SDL_SCANCODE_F)) flag=1;
-        sprintf(mensaje,"Puntos = %d", puntos);
+        
+        sprintf(mensajePuntos,"Puntos = %d", puntos);
+        sprintf(mensajeMunicion,"Municion restante: %d", LimiteBalas - disparadas);
 
         // Movimiento del personaje
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_LEFT)) PersonajeMueve(p,-VPersonaje,0);
@@ -241,7 +247,8 @@ int main(int argc, char **argv) {
 
         // Dibuja un pequeño menú
         Pantalla_DibujaTexto("Para terminar el juego pulse [Tab].", wPantalla/100, hPantalla/50);
-        Pantalla_DibujaTexto(mensaje, wPantalla/100, hPantalla/20);
+        Pantalla_DibujaTexto(mensajePuntos, wPantalla/100, hPantalla/20);
+        Pantalla_DibujaTexto(mensajeMunicion, wPantalla/100, hPantalla*0.95);
         VidasDibuja(v);
         if (primvez) Pantalla_DibujaTexto("Pulse [f] para disparar", wPantalla/100, hPantalla*0.98); // En el caso de que no se haya disparado antes muestra el control
         
@@ -257,7 +264,6 @@ int main(int argc, char **argv) {
     BalasLibera(b);
     VidasLibera(v);
     Pantalla_ImagenLibera(fondo3);
-    //Pantalla_ImagenLibera(Im);
     Pantalla_ImagenLibera(Im2);
     Pantalla_ImagenLibera(Im3);
     Pantalla_ImagenLibera(Im4);
@@ -279,10 +285,13 @@ int main(int argc, char **argv) {
         }
         fclose(r);
     }
+
     char texto2[100];
     if (puntosmax<puntos)
         sprintf(texto2,"Nuevo Record = %d",puntos);
-    else    sprintf(texto2,"Record = %d",puntosmax);
+    else 
+        sprintf(texto2,"Record = %d",puntosmax);
+
     r = fopen("record.txt","a");
     fprintf(r,"%d\n",puntos);
     fclose(r);
@@ -295,11 +304,13 @@ int main(int argc, char **argv) {
 
         Pantalla_DibujaImagen(fondo4, 0, 0, wPantalla, hPantalla);
         Pantalla_DibujaTexto("Para salir pulse [Esc].", wPantalla/3, hPantalla/2);
-        Pantalla_DibujaTexto(mensaje, wPantalla/3, hPantalla * 0.55);
+        Pantalla_DibujaTexto(mensajePuntos, wPantalla/3, hPantalla * 0.55);
         Pantalla_DibujaTexto(texto2, wPantalla/3, hPantalla * 0.6);
+
         Pantalla_Actualiza();
         Pantalla_Espera(40);
     }
+
     // Liberado de imágenes
     Pantalla_ImagenLibera(fondo4);
     // Libera la pantalla y fin del juego
