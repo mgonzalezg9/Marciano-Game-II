@@ -1,5 +1,8 @@
 # Marciano-Game-II
-Arcade game based on Galaga. TP Project.
+Game created as a project for TP subject. 
+The goal in the game is to reach the highest punctuation by collecting stars.
+
+The GUI is created using *Pantalla* wrapper, given in the subject.
 
 ## Compile & run
 To compile the game just run:  
