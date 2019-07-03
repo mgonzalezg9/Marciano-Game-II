@@ -18,4 +18,10 @@ $ ./run
 If you want to erase all generated files run:
 ```sh
 $ make clean
-```
+```  
+
+## Requirements
+The game needs the system to have installed the following:
+* SDL2 Library
+* GNU Make
+* GCC Compiler
