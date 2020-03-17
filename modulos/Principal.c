@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <X11/Xlib.h>
 
-#define WPANTALLA       1280 // Resolución por defecto
-#define HPANTALLA       960
+#define FACTOR_ESCALADO 0.85 // Resolución de la ventana
 #define NUM_ARGS        3
 
 #define PuntosBalazo    20
@@ -30,16 +30,23 @@
 
 
 int main(int argc, char **argv) {
-    // Cargado de las imágenes y creación de la pantalla
+    // Obtención de la resolución de la pantalla
     int ancho, alto;
-    if (argc < NUM_ARGS) {
-        ancho = WPANTALLA;
-        alto = HPANTALLA;
+    if (argc != NUM_ARGS) {
+        // Resolución por defecto
+        Display* d = XOpenDisplay(NULL);
+        Screen*  s = DefaultScreenOfDisplay(d);
+
+        ancho = s->width * FACTOR_ESCALADO;
+        alto = s->height * FACTOR_ESCALADO;
     } else {
         ancho = atoi(argv[1]);
         alto = atoi(argv[2]);
     }
 
+    printf("Resolucion de la ventana: %dx%d\n", ancho, alto);
+
+    // Cargado de las imágenes y creación de la pantalla
     Imagen fondo1, fondo2, fondo3, fondo4;
     Pantalla_Crea("Marciano Game II", ancho, alto);
 
