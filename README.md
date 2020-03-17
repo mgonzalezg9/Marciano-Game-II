@@ -31,3 +31,4 @@ The game needs the system to have installed the following:
 * SDL2 Library
 * GNU Make
 * GCC Compiler
+* XLib11
