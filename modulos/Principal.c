@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
         alto = atoi(argv[2]);
     }
 
-    printf("Resolucion de la ventana: %dx%d\n", ancho, alto);
+    printf("Window resolution: %dx%d\n", ancho, alto);
 
     // Cargado de las imágenes y creación de la pantalla
     Imagen fondo1, fondo2, fondo3, fondo4;
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
     int flag = 1;
     double ti;
     // FASE 1
-    printf("[Fase 1]\n");
+    printf("[Phase 1]\n");
     while (Pantalla_Activa() && !fin) {
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_RETURN)) {
             fin = 1;
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
         Pantalla_DibujaImagen(fondo1, 0, 0, wPantalla, hPantalla);
 
         if (flag || time(NULL) - ti < 1) { // Si es la primera vez o no ha pasado un segundo dibujar texto
-            Pantalla_DibujaTexto("Pulsa la tecla [Enter] para continuar", wPantalla / 100, hPantalla * 0.98);
+            Pantalla_DibujaTexto("Press [Enter] key to continue", wPantalla / 100, hPantalla * 0.98);
         } else {
             if (time(NULL) - ti > 1.2) { // Si no se ha dibujado el texto desde hace 1.2 - 1 seg reiniciar el tiempo
                 ti = time(NULL);
@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
     flag = 1; // Indica que se acaba de pulsar el boton
 
     // FASE 2
-    printf("[Fase 2]\n");
+    printf("[Phase 2]\n");
     while (Pantalla_Activa() && (!fin)) {
         // Condición de cambio de fase
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_SPACE)) {
@@ -167,9 +167,9 @@ int main(int argc, char **argv) {
         // Dibujado de fondos y menús
         Pantalla_DibujaImagen(fondo2, 0, 0, wPantalla, hPantalla);
         Pantalla_DibujaImagen(Im, wPantalla / 2 - WPersonaje, 0.65 * hPantalla, WPersonaje * 2, HPersonaje * 2); // Se dibuja la imagen a elegir el doble de grande
-        Pantalla_DibujaTexto("Gracias por pulsar la tecla.", wPantalla / 3, hPantalla / 4);
-        Pantalla_DibujaTexto("Para seleccionar un personaje usa las flechas.", wPantalla / 3, hPantalla * 0.3);
-        Pantalla_DibujaTexto("Para jugar pulse [Espacio].", wPantalla / 3, hPantalla * 0.35);
+        Pantalla_DibujaTexto("Thanks for pressing the key.", wPantalla / 3, hPantalla / 4);
+        Pantalla_DibujaTexto("Use the key arrows to select a spaceship.", wPantalla / 3, hPantalla * 0.3);
+        Pantalla_DibujaTexto("Press [Spacebar] to play.", wPantalla / 3, hPantalla * 0.35);
 
         // Refresco de la pantalla
         Pantalla_Actualiza();
@@ -203,7 +203,7 @@ int main(int argc, char **argv) {
     int primvez = 1; // Determina si se ha disparado ya antes
 
     // FASE 3
-    printf("[Fase 3]\n");
+    printf("[Phase 3]\n");
     while (Pantalla_Activa() && !fin && VidasGetVida(v) > 0) {
         // Condición de final de juego
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_TAB)) {
@@ -227,14 +227,14 @@ int main(int argc, char **argv) {
         }
         if (EstrellasColision(e, PersonajeGetX(p), PersonajeGetY(p), PersonajeGetH(p), PersonajeGetW(p)))
         {
-            printf("[Colision] Estrella\n");
+            printf("[Collision] Star\n");
             puntos_estrellas += 20;
         }
         if (EnemigosColision(e1, PersonajeGetX(p), PersonajeGetY(p), PersonajeGetH(p), PersonajeGetW(p))) {
-            printf("[Colision] Enemigo\n");
+            printf("[Collision] Enemy\n");
             puntos_enemigo += 20;
             VidasEliminaVida(v);
-            printf("[Vidas] Restantes: %d\n", VidasGetVida(v));
+            printf("[Lifes] Remaining: %d\n", VidasGetVida(v));
         }
         BPuntos += BalasColision(b, e1) * PuntosBalazo;
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_F) && flag && disparadas < LimiteBalas) {
@@ -243,12 +243,12 @@ int main(int argc, char **argv) {
             disparadas++;
             flag = 0;
             primvez = 0;
-            printf("[Disparo] Balas disparadas: %d\n", disparadas);
+            printf("[Shoot] Bullets fired: %d\n", disparadas);
         }
         if (!Pantalla_TeclaPulsada(SDL_SCANCODE_F)) flag = 1;
 
-        sprintf(mensajePuntos, "Puntos = %d", puntos);
-        sprintf(mensajeMunicion, "Municion restante: %d", LimiteBalas - disparadas);
+        sprintf(mensajePuntos, "Points = %d", puntos);
+        sprintf(mensajeMunicion, "Remaining ammo: %d", LimiteBalas - disparadas);
 
         // Movimiento del personaje
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_LEFT)) PersonajeMueve(p, -VPersonaje, 0);
@@ -266,11 +266,11 @@ int main(int argc, char **argv) {
         PersonajeDibuja(p);
 
         // Dibuja un pequeño menú
-        Pantalla_DibujaTexto("Para terminar el juego pulse [Tab].", wPantalla / 100, hPantalla / 50);
+        Pantalla_DibujaTexto("To end the game press [Tab].", wPantalla / 100, hPantalla / 50);
         Pantalla_DibujaTexto(mensajePuntos, wPantalla / 100, hPantalla / 20);
         Pantalla_DibujaTexto(mensajeMunicion, wPantalla / 100, hPantalla * 0.95);
         VidasDibuja(v);
-        if (primvez) Pantalla_DibujaTexto("Pulse [f] para disparar", wPantalla / 100, hPantalla * 0.98); // En el caso de que no se haya disparado antes muestra el control
+        if (primvez) Pantalla_DibujaTexto("Press [f] to shoot", wPantalla / 100, hPantalla * 0.98); // En el caso de que no se haya disparado antes muestra el control
 
         // Refresco de la pantalla
         Pantalla_Actualiza();
@@ -293,7 +293,7 @@ int main(int argc, char **argv) {
     Pantalla_ImagenLibera(Imp3);
 
     // Guardado de la puntuación
-    printf("[Guardado] Puntuacion\n");
+    printf("[Save] Score\n");
     int datoleido;
     int puntosmax = 0;
     FILE * r = fopen("record.txt", "r");
@@ -308,7 +308,7 @@ int main(int argc, char **argv) {
 
     char texto2[100];
     if (puntosmax < puntos)
-        sprintf(texto2, "Nuevo Record = %d", puntos);
+        sprintf(texto2, "New Record = %d", puntos);
     else
         sprintf(texto2, "Record = %d", puntosmax);
 
@@ -316,14 +316,14 @@ int main(int argc, char **argv) {
     fprintf(r, "%d\n", puntos);
     fclose(r);
     // FASE 4
-    printf("[Fase 4]\n");
+    printf("[Phase 4]\n");
     while (Pantalla_Activa() && !fin) {
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_ESCAPE)) {
             fin = 1;
         }
 
         Pantalla_DibujaImagen(fondo4, 0, 0, wPantalla, hPantalla);
-        Pantalla_DibujaTexto("Para salir pulse [Esc].", wPantalla * 0.43, hPantalla / 2);
+        Pantalla_DibujaTexto("To quit press [Esc].", wPantalla * 0.43, hPantalla / 2);
         Pantalla_DibujaTexto(mensajePuntos, wPantalla * 0.43, hPantalla * 0.55);
         Pantalla_DibujaTexto(texto2, wPantalla * 0.43, hPantalla * 0.6);
 
