@@ -10,9 +10,15 @@ To compile the game just run:
 $ make
 ```  
 
-The executable file is prepared and you can play the game by running:
+Once compiled the executable file is prepared and you can play the game by running:
 ```sh
 $ ./run
+```
+
+In order to play the game with a certain resolution you can specify it via command line:
+```sh
+# ./run width height
+$ ./run 1280 960
 ```
 
 If you want to erase all generated files run:
