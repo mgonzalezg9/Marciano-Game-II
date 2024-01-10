@@ -9,31 +9,31 @@
 #include <time.h>
 #include <X11/Xlib.h>
 
-#define FACTOR_ESCALADO 0.85 // Resolución de la ventana
+#define FACTOR_ESCALADO 0.85 // Resoluciï¿½n de la ventana
 #define NUM_ARGS        3
 
 #define PuntosBalazo    20
-#define ProbApEstrellas 30 // Cuanto menor sea más probable será que aparezcan
+#define ProbApEstrellas 30 // Cuanto menor sea mï¿½s probable serï¿½ que aparezcan
 #define ProbApEnemigos  10
 #define VidaInicial     3
 #define MaxEstrellas    5
-#define LimiteBalas     15 // Número máximo de balas que se pueden disparar
+#define LimiteBalas     15 // Nï¿½mero mï¿½ximo de balas que se pueden disparar
 
 /**
 
-\mainpage Videojuego donde una nave guíada por el usuario debe aguantar el máximo tiempo posible sin chocar con una nave marciana enemiga, para obtener la máxima puntuación posible.
+\mainpage Videojuego donde una nave guï¿½ada por el usuario debe aguantar el mï¿½ximo tiempo posible sin chocar con una nave marciana enemiga, para obtener la mï¿½xima puntuaciï¿½n posible.
 \file Principal.c
-\author Manuel González García
+\author Manuel Gonzï¿½lez Garcï¿½a
 \version 1.4
 
 **/
 
 
 int main(int argc, char **argv) {
-    // Obtención de la resolución de la pantalla
+    // Obtenciï¿½n de la resoluciï¿½n de la pantalla
     int ancho, alto;
     if (argc != NUM_ARGS) {
-        // Resolución por defecto
+        // Resoluciï¿½n por defecto
         Display* d = XOpenDisplay(NULL);
         Screen*  s = DefaultScreenOfDisplay(d);
 
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 
     printf("Window resolution: %dx%d\n", ancho, alto);
 
-    // Cargado de las imágenes y creación de la pantalla
+    // Cargado de las imï¿½genes y creaciï¿½n de la pantalla
     Imagen fondo1, fondo2, fondo3, fondo4;
     Pantalla_Crea("Marciano Game II", ancho, alto);
 
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
     Pantalla_ColorTrazo(0, 255, 0, 255);
     int fin = 0;
 
-    // Definición de las características de los objetos según la pantalla
+    // Definiciï¿½n de las caracterï¿½sticas de los objetos segï¿½n la pantalla
     int WPersonaje = wPantalla / 12;
     int HPersonaje = WPersonaje;
 
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
     int WVida = wPantalla / 50;
     int HVida = WVida;
 
-    // Lectura de imágenes
+    // Lectura de imï¿½genes
     fondo1 = Pantalla_ImagenLee("bg/PantallaInicio.bmp", 0);
     fondo2 = Pantalla_ImagenLee("bg/EleccionPersonaje.bmp", 0);
     fondo3 = Pantalla_ImagenLee("bg/PantallaJuego.bmp", 0);
@@ -118,24 +118,25 @@ int main(int argc, char **argv) {
     // Liberado de elementos de la pantalla anterior
     Pantalla_ImagenLibera(fondo1);
 
-    // Imágenes del personaje a elegir
+    // Imï¿½genes del personaje a elegir
     Imagen Imp1 = Pantalla_ImagenLee("sprites/personaje.bmp", 1);
     Imagen Imp2 = Pantalla_ImagenLee("sprites/personaje2.bmp", 1);
     Imagen Imp3 = Pantalla_ImagenLee("sprites/personaje3.bmp", 1);
+    Imagen Imp4 = Pantalla_ImagenLee("sprites/personaje4.bmp", 1);
 
     // Variables de control
     int sel = 0; // Indica la skin a escoger
-    flag = 1; // Indica que se acaba de pulsar el boton
+    flag = 1;    // Indica que se acaba de pulsar el boton
 
     // FASE 2
     printf("[Phase 2]\n");
     while (Pantalla_Activa() && (!fin)) {
-        // Condición de cambio de fase
+        // Condiciï¿½n de cambio de fase
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_SPACE)) {
             fin = 1;
         }
 
-        // Elección de la imagen que tendrá el personaje
+        // Elecciï¿½n de la imagen que tendrï¿½ el personaje
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_RIGHT) && flag) {
             sel++;
             flag = 0;
@@ -144,11 +145,12 @@ int main(int argc, char **argv) {
             sel--;
             flag = 0;
         }
-        if (!Pantalla_TeclaPulsada(SDL_SCANCODE_RIGHT) && !Pantalla_TeclaPulsada(SDL_SCANCODE_LEFT)) // Si no se pulsa ningún botón puede elegirse de nuevo
+        if (!Pantalla_TeclaPulsada(SDL_SCANCODE_RIGHT) && !Pantalla_TeclaPulsada(SDL_SCANCODE_LEFT)) // Si no se pulsa ningï¿½n botï¿½n puede elegirse de nuevo
             flag = 1;
 
-        // Según lo elegido se imprime una u otra imágen
-        switch (sel) {
+        // Segï¿½n lo elegido se imprime una u otra imï¿½gen
+        switch (sel)
+        {
         case 0:
             Im = Imp1;
             break;
@@ -158,13 +160,16 @@ int main(int argc, char **argv) {
         case 2:
             Im = Imp3;
             break;
+        case 3:
+            Im = Imp4;
+            break;
         }
 
-        // Evita que se salga del rango de imágenes
-        if (sel > 2) sel = 2;
+        // Evita que se salga del rango de imï¿½genes
+        if (sel > 3) sel = 3;
         if (sel < 0) sel = 0;
 
-        // Dibujado de fondos y menús
+        // Dibujado de fondos y menï¿½s
         Pantalla_DibujaImagen(fondo2, 0, 0, wPantalla, hPantalla);
         Pantalla_DibujaImagen(Im, wPantalla / 2 - WPersonaje, 0.65 * hPantalla, WPersonaje * 2, HPersonaje * 2); // Se dibuja la imagen a elegir el doble de grande
         Pantalla_DibujaTexto("Thanks for pressing the key.", wPantalla / 3, hPantalla / 4);
@@ -180,7 +185,7 @@ int main(int argc, char **argv) {
     // Liberado del fondo
     Pantalla_ImagenLibera(fondo2);
 
-    // Inicialización de TDA
+    // Inicializaciï¿½n de TDA
     Personaje p = PersonajeCrea(Im, WPersonaje, HPersonaje, rand() % (wPantalla - WPersonaje), hPantalla - HPersonaje);
     Enemigos e1 = EnemigosCrea();
     Estrellas e = EstrellasCrea(MaxEstrellas);
@@ -189,7 +194,7 @@ int main(int argc, char **argv) {
     Vidas v = VidasCrea(VidaInicial);
     VidasRellena(v, Im5, WVida, HVida, wPantalla / 100, hPantalla / 12); // Se dibujan las vidas
 
-    // Preparación del nivel
+    // Preparaciï¿½n del nivel
     fin = 0;
     ti = time(NULL);
     int t2;
@@ -205,7 +210,7 @@ int main(int argc, char **argv) {
     // FASE 3
     printf("[Phase 3]\n");
     while (Pantalla_Activa() && !fin && VidasGetVida(v) > 0) {
-        // Condición de final de juego
+        // Condiciï¿½n de final de juego
         if (Pantalla_TeclaPulsada(SDL_SCANCODE_TAB)) {
             fin = 1;
         }
@@ -214,7 +219,7 @@ int main(int argc, char **argv) {
         t2 = time(NULL);
         puntos = t2 - ti + puntos_estrellas - puntos_enemigo + BPuntos;
 
-        // Aparición de objetos
+        // Apariciï¿½n de objetos
         if (rand() % ProbApEstrellas == 1)
         {
             Estrella e1 = EstrellaCrea(Im3, WPersonaje / 3, HPersonaje / 3, rand() % (wPantalla - WPersonaje), rand() % (hPantalla - HPersonaje));
@@ -265,7 +270,7 @@ int main(int argc, char **argv) {
         EnemigosDibuja(e1);
         PersonajeDibuja(p);
 
-        // Dibuja un pequeño menú
+        // Dibuja un pequeï¿½o menï¿½
         Pantalla_DibujaTexto("To end the game press [Tab].", wPantalla / 100, hPantalla / 50);
         Pantalla_DibujaTexto(mensajePuntos, wPantalla / 100, hPantalla / 20);
         Pantalla_DibujaTexto(mensajeMunicion, wPantalla / 100, hPantalla * 0.95);
@@ -277,7 +282,7 @@ int main(int argc, char **argv) {
         Pantalla_Espera(20);
     }
     fin = 0;
-    // Liberación de las TDA y de las imágenes
+    // Liberaciï¿½n de las TDA y de las imï¿½genes
     EnemigosLibera(e1);
     EstrellasLibera(e);
     PersonajeLibera(p);
@@ -291,8 +296,9 @@ int main(int argc, char **argv) {
     Pantalla_ImagenLibera(Imp1);
     Pantalla_ImagenLibera(Imp2);
     Pantalla_ImagenLibera(Imp3);
+    Pantalla_ImagenLibera(Imp4);
 
-    // Guardado de la puntuación
+    // Guardado de la puntuaciï¿½n
     printf("[Save] Score\n");
     int datoleido;
     int puntosmax = 0;
@@ -331,7 +337,7 @@ int main(int argc, char **argv) {
         Pantalla_Espera(40);
     }
 
-    // Liberado de imágenes
+    // Liberado de imï¿½genes
     Pantalla_ImagenLibera(fondo4);
     // Libera la pantalla y fin del juego
     Pantalla_Libera();
