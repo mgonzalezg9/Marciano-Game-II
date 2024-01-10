@@ -119,11 +119,15 @@ int main(int argc, char **argv) {
     Pantalla_ImagenLibera(fondo1);
 
     // Im�genes del personaje a elegir
-    Imagen Imp1 = Pantalla_ImagenLee("sprites/personaje.bmp", 1);
-    Imagen Imp2 = Pantalla_ImagenLee("sprites/personaje2.bmp", 1);
-    Imagen Imp3 = Pantalla_ImagenLee("sprites/personaje3.bmp", 1);
-    Imagen Imp4 = Pantalla_ImagenLee("sprites/personaje4.bmp", 1);
-
+    int numPersonajes = 4;
+    Imagen Imp[numPersonajes];
+    for (int i = 0; i < numPersonajes; i++)
+    {
+        char filename[50];
+        sprintf(filename, "sprites/personajes/%d.bmp", i + 1);
+        Imp[i] = Pantalla_ImagenLee(filename, 1);
+    }
+    
     // Variables de control
     int sel = 0; // Indica la skin a escoger
     flag = 1;    // Indica que se acaba de pulsar el boton
@@ -148,26 +152,12 @@ int main(int argc, char **argv) {
         if (!Pantalla_TeclaPulsada(SDL_SCANCODE_RIGHT) && !Pantalla_TeclaPulsada(SDL_SCANCODE_LEFT)) // Si no se pulsa ning�n bot�n puede elegirse de nuevo
             flag = 1;
 
-        // Seg�n lo elegido se imprime una u otra im�gen
-        switch (sel)
-        {
-        case 0:
-            Im = Imp1;
-            break;
-        case 1:
-            Im = Imp2;
-            break;
-        case 2:
-            Im = Imp3;
-            break;
-        case 3:
-            Im = Imp4;
-            break;
-        }
-
         // Evita que se salga del rango de im�genes
-        if (sel > 3) sel = 3;
+        if (sel > numPersonajes - 1) sel = numPersonajes - 1;
         if (sel < 0) sel = 0;
+
+        // Seg�n lo elegido se imprime una u otra im�gen
+        Im = Imp[sel];
 
         // Dibujado de fondos y men�s
         Pantalla_DibujaImagen(fondo2, 0, 0, wPantalla, hPantalla);
@@ -293,10 +283,10 @@ int main(int argc, char **argv) {
     Pantalla_ImagenLibera(Im3);
     Pantalla_ImagenLibera(Im4);
     Pantalla_ImagenLibera(Im5);
-    Pantalla_ImagenLibera(Imp1);
-    Pantalla_ImagenLibera(Imp2);
-    Pantalla_ImagenLibera(Imp3);
-    Pantalla_ImagenLibera(Imp4);
+    for (int i = 0; i < numPersonajes; i++)
+    {
+        Pantalla_ImagenLibera(Imp[i]);
+    }
 
     // Guardado de la puntuaci�n
     printf("[Save] Score\n");
