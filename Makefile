@@ -1,5 +1,5 @@
 TARGET = run
-LIBS = -Wall -lSDL2main -lSDL2 -lSDL2_ttf -lm -lX11
+LIBS = -Wall -lSDL2main -lSDL2 -lm -lX11
 CFLAGS = -g -Wall -lSDL2 -std=c99
 
 SOURCES = $(wildcard modulos/*.c)
@@ -14,4 +14,3 @@ $(TARGET): $(OBJECTS)
 
 clean:
 	-rm -f $(OBJECTS) $(TARGET) record.txt
-	

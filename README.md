@@ -21,6 +21,8 @@ In order to play the game with a certain resolution you can specify it via comma
 $ ./run 1280 960
 ```
 
+## Clean
+
 If you want to erase all generated files run:
 ```sh
 $ make clean
@@ -32,3 +34,7 @@ The game needs the system to have installed the following:
 * GNU Make
 * GCC Compiler
 * XLib11
+
+```bash
+sudo apt install gcc make libsdl2-dev -y
+```
