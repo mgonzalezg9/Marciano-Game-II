@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=true
+Type=Application
+Name=Marciano Game II
+Comment=Game developed for "Tecnología de la Programacion" subject at University of Murcia.
+Exec=/usr/bin/marciano-game
+Icon=marciano-logo
