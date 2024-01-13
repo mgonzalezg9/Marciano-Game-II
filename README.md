@@ -1,4 +1,7 @@
 # Marciano-Game-II
+
+![Marciano Game II Logo](logo.png)
+
 Game created as a project for TP subject. 
 The goal in the game is to reach the highest punctuation by collecting stars.
 
@@ -27,6 +30,18 @@ If you want to erase all generated files run:
 ```sh
 $ make clean
 ```  
+
+## Install
+> Note: This feature is in progress.
+
+You can compile the application and create a desktop icon all in one. Run:
+
+```sh
+$ sudo make install
+$ sudo make uninstall
+```
+
+This creates/removes a desktop icon and the binary at `/usr/bin`.
 
 ## Requirements
 The game needs the system to have installed the following:
